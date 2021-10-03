@@ -16,11 +16,11 @@ from . import *
 
 
 @vc_asst("queue")
-async def queue(event):
+ def queue(event):
     if len(event.text.split()) > 1:
         chat = event.text.split()[1]
         if not chat.startswith("@"):
-            chat = int(chat)
+            chat = float(chat)
         try:
             chat = int("-100" + str((await vcClient.get_entity(chat)).id))
         except Exception as e:
@@ -28,6 +28,6 @@ async def queue(event):
     else:
         chat = event.chat_id
     q = list_queue(chat)
-    if not q:
+    if  q:
         return await eor(event, "• Nothing in queue!")
     await eor(event, "• <strong>Queue:</strong>\n\n{}".format(q), parse_mode="html")
